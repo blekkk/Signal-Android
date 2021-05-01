@@ -19,6 +19,7 @@ package org.thoughtcrime.securesms.conversation;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -1947,8 +1948,17 @@ public class ConversationActivity extends PassphraseRequiredActivity
     wallpaper                = findViewById(R.id.conversation_wallpaper);
     wallpaperDim             = findViewById(R.id.conversation_wallpaper_dim);
 
+    ImageButton test                   = findViewById(R.id.toLight_button);
     ImageButton quickCameraToggle      = findViewById(R.id.quick_camera_toggle);
     ImageButton inlineAttachmentButton = findViewById(R.id.inline_attachment_button);
+
+    test.setOnClickListener(new View.OnClickListener() {
+            @Override
+           public void onClick(View v) {
+              Activity activity = new Activity();
+              activity.setTheme(R.style.Signal_DayNight);
+            }
+        });
 
     Stub<ConversationReactionOverlay> reactionOverlayStub = ViewUtil.findStubById(this, R.id.conversation_reaction_scrubber_stub);
     reactionDelegate = new ConversationReactionDelegate(reactionOverlayStub);
