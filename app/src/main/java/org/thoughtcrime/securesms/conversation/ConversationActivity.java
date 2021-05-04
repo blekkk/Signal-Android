@@ -70,6 +70,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -1948,21 +1949,25 @@ public class ConversationActivity extends PassphraseRequiredActivity
     wallpaper                = findViewById(R.id.conversation_wallpaper);
     wallpaperDim             = findViewById(R.id.conversation_wallpaper_dim);
 
-    ImageButton test                   = findViewById(R.id.toLight_button);
+    ImageButton clearMsg                 = findViewById(R.id.toLight_button);
     ImageButton quickCameraToggle      = findViewById(R.id.quick_camera_toggle);
     ImageButton inlineAttachmentButton = findViewById(R.id.inline_attachment_button);
 
-    test.setOnClickListener(new View.OnClickListener() {
-            @Override
-           public void onClick(View v) {
-              Activity activity = new Activity();
-              activity.setTheme(R.style.Signal_DayNight);
-            }
-        });
+    clearMsg.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        composeText.getText().clear();
+        Context context = getApplicationContext();
+        CharSequence text = "Message cleared!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+      }
+    });
 
     Stub<ConversationReactionOverlay> reactionOverlayStub = ViewUtil.findStubById(this, R.id.conversation_reaction_scrubber_stub);
     reactionDelegate = new ConversationReactionDelegate(reactionOverlayStub);
-
 
     noLongerMemberBanner   = findViewById(R.id.conversation_no_longer_member_banner);
     requestingMemberBanner = findViewById(R.id.conversation_requesting_banner);
